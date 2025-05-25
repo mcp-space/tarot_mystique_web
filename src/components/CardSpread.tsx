@@ -92,6 +92,7 @@ const SpreadContainer = styled.div<{ $layout: string }>`
   display: grid;
   gap: 2rem;
   justify-items: center;
+  align-items: center;
   margin: 3rem 0;
   
   ${({ $layout }) => {
@@ -105,25 +106,29 @@ const SpreadContainer = styled.div<{ $layout: string }>`
       case 'three-card':
         return `
           grid-template-columns: repeat(3, 1fr);
-          max-width: 600px;
+          max-width: 720px;
           margin: 3rem auto;
+          gap: 3rem;
           
           @media (max-width: 768px) {
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 2rem;
+            max-width: 200px;
           }
         `;
       case 'celtic-cross':
         return `
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(5, 1fr);
           grid-template-rows: repeat(4, 1fr);
-          max-width: 600px;
+          max-width: 800px;
           margin: 3rem auto;
+          gap: 1.5rem;
           
           @media (max-width: 768px) {
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(6, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(5, 1fr);
             gap: 1rem;
+            max-width: 480px;
           }
         `;
       default:
@@ -136,22 +141,23 @@ const CardPosition = styled(motion.div)<{ $position: number; $layout: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   position: relative;
   
   ${({ $layout, $position }) => {
     if ($layout === 'celtic-cross') {
-      // 켈틱크로스 포지션 설정
+      // 켈틱크로스 개선된 포지션 (더 직관적)
       switch ($position) {
-        case 0: return 'grid-column: 2; grid-row: 2;'; // 중앙
-        case 1: return 'grid-column: 2; grid-row: 1;'; // 위
-        case 2: return 'grid-column: 1; grid-row: 2;'; // 왼쪽
-        case 3: return 'grid-column: 2; grid-row: 3;'; // 아래
-        case 4: return 'grid-column: 3; grid-row: 2;'; // 오른쪽
-        case 5: return 'grid-column: 2; grid-row: 4;'; // 맨 아래
-        case 6: return 'grid-column: 4; grid-row: 1;'; // 오른쪽 위
-        case 7: return 'grid-column: 4; grid-row: 2;'; // 오른쪽 중앙
-        case 8: return 'grid-column: 4; grid-row: 3;'; // 오른쪽 아래
-        case 9: return 'grid-column: 4; grid-row: 4;'; // 오른쪽 맨 아래
+        case 0: return 'grid-column: 3; grid-row: 2;'; // 현재 상황 (중앙)
+        case 1: return 'grid-column: 3; grid-row: 1;'; // 가능한 결과 (위)
+        case 2: return 'grid-column: 2; grid-row: 2;'; // 과거의 영향 (왼쪽)
+        case 3: return 'grid-column: 3; grid-row: 3;'; // 잠재의식 (아래)
+        case 4: return 'grid-column: 4; grid-row: 2;'; // 가능한 미래 (오른쪽)
+        case 5: return 'grid-column: 3; grid-row: 4;'; // 당신의 접근법 (맨 아래)
+        case 6: return 'grid-column: 5; grid-row: 1;'; // 외부 영향
+        case 7: return 'grid-column: 5; grid-row: 2;'; // 희망과 두려움
+        case 8: return 'grid-column: 5; grid-row: 3;'; // 최종 결과
+        case 9: return 'grid-column: 5; grid-row: 4;'; // 조언
         default: return '';
       }
     }
