@@ -8,7 +8,8 @@ class TarotMystiqueAPI {
   private baseURL: string
 
   constructor() {
-    this.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+    // 항상 외부 서버로 요청하도록 고정
+    this.baseURL = 'http://182.209.102.132:8080/api'
     
     this.client = axios.create({
       baseURL: this.baseURL,
@@ -22,6 +23,7 @@ class TarotMystiqueAPI {
     this.client.interceptors.request.use(
       (config) => {
         console.log('🔮 Sending mystical request:', config.method?.toUpperCase(), config.url)
+        console.log('🌟 Target server:', this.baseURL)
         return config
       },
       (error) => {
@@ -47,6 +49,8 @@ class TarotMystiqueAPI {
           toast.error('💀 The cosmic servers are experiencing turbulence.')
         } else if (error.response?.status === 404) {
           toast.error('🔍 The mystical resource was not found in the cosmic library.')
+        } else if (error.code === 'ERR_NETWORK') {
+          toast.error('🌐 Network connection to the mystical server failed.')
         } else {
           toast.error('⚡ An unexpected cosmic disturbance occurred.')
         }
