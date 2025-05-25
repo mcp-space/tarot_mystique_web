@@ -85,6 +85,14 @@ src/
 │   ├── HomePage.tsx    # 메인 페이지
 │   ├── ReadingPage.tsx # 카드 리딩 페이지
 │   └── CardDetailPage.tsx # 카드 상세 페이지
+├── hooks/              # 커스텀 훅
+│   ├── useTarotAPI.ts  # 타로 API 관련 훅
+│   ├── useLocalStorage.ts # 로컬 스토리지 훅
+│   └── useAnalytics.ts # Analytics 관련 훅
+├── services/           # 서비스 레이어
+│   ├── api.ts          # API 클라이언트
+│   ├── analytics.ts    # Analytics 서비스
+│   └── analyticsTest.ts # Analytics 테스트 유틸리티
 ├── styles/             # 스타일 관련
 │   ├── theme.ts        # 테마 정의
 │   ├── GlobalStyles.ts # 글로벌 스타일
@@ -95,6 +103,50 @@ src/
 │   └── majorArcana.ts  # 메이저 아르카나 카드 데이터
 └── utils/              # 유틸리티 함수
 ```
+
+## 📊 Analytics & 활동 추적
+
+타로 미스틱에는 사용자 활동을 추적하는 분석 시스템이 내장되어 있습니다:
+
+### 추적되는 활동
+- **페이지 방문**: 홈페이지, 리딩 페이지, 카드 상세 페이지 방문
+- **타로 리딩**: 카드 뽑기, 스프레드 타입, 질문 내용, 해석 결과
+- **카드 조회**: 개별 카드 상세 정보 조회
+
+### 데이터 구조
+```json
+{
+  "ip": "사용자 IP 주소",
+  "category": "활동 카테고리 (page_visit, tarot_reading_오늘의_운세, card_view 등)",
+  "userContent": "사용자 입력 내용 (질문, 페이지명, 카드명 등)",
+  "resultContent": "결과 데이터 (JSON 형태의 상세 정보)"
+}
+```
+
+### 환경 설정
+Analytics 기능은 환경변수를 통해 제어됩니다:
+
+```bash
+# .env 파일
+VITE_ANALYTICS_URL=182.209.102.132:8080/api/v1/tarot  # Analytics 서버 주소
+VITE_ENABLE_ANALYTICS=true                      # Analytics 활성화/비활성화
+```
+
+### 개발자 도구
+개발 환경에서는 브라우저 콘솔에서 Analytics 테스트가 가능합니다:
+
+```javascript
+// 브라우저 콘솔에서 실행
+window.testAnalytics.runAllTests()         // 모든 테스트 실행
+window.testAnalytics.testConnection()      // 연결 테스트
+window.testAnalytics.testTarotReading()    // 타로 리딩 로그 테스트
+window.testAnalytics.testCardView()        // 카드 조회 로그 테스트
+```
+
+### API 엔드포인트
+- **POST** `/api/v1/tarot/add` - 활동 데이터 전송
+
+Analytics 데이터는 백그라운드에서 비동기적으로 전송되며, 전송 실패 시에도 사용자 경험에 영향을 주지 않습니다.
 
 ## 🎯 주요 기능
 

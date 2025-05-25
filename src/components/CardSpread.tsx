@@ -93,42 +93,86 @@ const SpreadContainer = styled.div<{ $layout: string }>`
   gap: 2rem;
   justify-items: center;
   align-items: center;
-  margin: 3rem 0;
+  margin: 3rem auto;
+  padding: 0 1rem;
   
   ${({ $layout }) => {
     switch ($layout) {
       case 'single':
         return `
           grid-template-columns: 1fr;
-          max-width: 200px;
-          margin: 3rem auto;
+          max-width: 300px;
+          
+          @media (max-width: 768px) {
+            max-width: 250px;
+            margin: 2rem auto;
+          }
+          
+          @media (max-width: 480px) {
+            max-width: 200px;
+            margin: 1.5rem auto;
+            gap: 1.5rem;
+          }
         `;
       case 'three-card':
         return `
           grid-template-columns: repeat(3, 1fr);
           max-width: 720px;
-          margin: 3rem auto;
           gap: 3rem;
+          
+          @media (max-width: 1024px) {
+            max-width: 600px;
+            gap: 2.5rem;
+          }
           
           @media (max-width: 768px) {
             grid-template-columns: 1fr;
             gap: 2rem;
+            max-width: 250px;
+          }
+          
+          @media (max-width: 480px) {
+            gap: 1.5rem;
             max-width: 200px;
+            margin: 2rem auto;
           }
         `;
       case 'celtic-cross':
         return `
           grid-template-columns: repeat(5, 1fr);
           grid-template-rows: repeat(4, 1fr);
-          max-width: 800px;
-          margin: 3rem auto;
+          max-width: 900px;
           gap: 1.5rem;
+          min-height: 600px;
           
-          @media (max-width: 768px) {
-            grid-template-columns: repeat(3, 1fr);
+          @media (max-width: 1200px) {
+            max-width: 750px;
+            gap: 1.2rem;
+            min-height: 550px;
+          }
+          
+          @media (max-width: 1024px) {
+            grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(5, 1fr);
             gap: 1rem;
-            max-width: 480px;
+            max-width: 600px;
+            min-height: 650px;
+          }
+          
+          @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(10, auto);
+            gap: 1.5rem;
+            max-width: 250px;
+            width: 100%;
+            min-height: auto;
+            margin: 2rem auto;
+          }
+          
+          @media (max-width: 480px) {
+            gap: 1rem;
+            max-width: 200px;
+            margin: 1.5rem auto;
           }
         `;
       default:
@@ -146,20 +190,61 @@ const CardPosition = styled(motion.div)<{ $position: number; $layout: string }>`
   
   ${({ $layout, $position }) => {
     if ($layout === 'celtic-cross') {
-      // 켈틱크로스 개선된 포지션 (더 직관적)
-      switch ($position) {
-        case 0: return 'grid-column: 3; grid-row: 2;'; // 현재 상황 (중앙)
-        case 1: return 'grid-column: 3; grid-row: 1;'; // 가능한 결과 (위)
-        case 2: return 'grid-column: 2; grid-row: 2;'; // 과거의 영향 (왼쪽)
-        case 3: return 'grid-column: 3; grid-row: 3;'; // 잠재의식 (아래)
-        case 4: return 'grid-column: 4; grid-row: 2;'; // 가능한 미래 (오른쪽)
-        case 5: return 'grid-column: 3; grid-row: 4;'; // 당신의 접근법 (맨 아래)
-        case 6: return 'grid-column: 5; grid-row: 1;'; // 외부 영향
-        case 7: return 'grid-column: 5; grid-row: 2;'; // 희망과 두려움
-        case 8: return 'grid-column: 5; grid-row: 3;'; // 최종 결과
-        case 9: return 'grid-column: 5; grid-row: 4;'; // 조언
-        default: return '';
-      }
+      // 데스크톱 레이아웃 (5x4 그리드)
+      const desktopPositions = {
+        0: 'grid-column: 3; grid-row: 2;', // 현재 상황 (중앙)
+        1: 'grid-column: 3; grid-row: 1;', // 도전 (위)
+        2: 'grid-column: 2; grid-row: 2;', // 과거 (왼쪽)
+        3: 'grid-column: 3; grid-row: 3;', // 잠재의식 (아래)
+        4: 'grid-column: 4; grid-row: 2;', // 가능한 미래 (오른쪽)
+        5: 'grid-column: 3; grid-row: 4;', // 가까운 미래 (맨 아래)
+        6: 'grid-column: 5; grid-row: 1;', // 나의 접근
+        7: 'grid-column: 5; grid-row: 2;', // 주변 환경
+        8: 'grid-column: 5; grid-row: 3;', // 내면의 소리
+        9: 'grid-column: 5; grid-row: 4;', // 최종 조언
+      };
+
+      // 태블릿 레이아웃 (4x5 그리드)
+      const tabletPositions = {
+        0: 'grid-column: 2; grid-row: 2;', // 현재 상황
+        1: 'grid-column: 2; grid-row: 1;', // 도전
+        2: 'grid-column: 1; grid-row: 2;', // 과거
+        3: 'grid-column: 2; grid-row: 3;', // 잠재의식
+        4: 'grid-column: 3; grid-row: 2;', // 가능한 미래
+        5: 'grid-column: 2; grid-row: 4;', // 가까운 미래
+        6: 'grid-column: 4; grid-row: 1;', // 나의 접근
+        7: 'grid-column: 4; grid-row: 2;', // 주변 환경
+        8: 'grid-column: 4; grid-row: 3;', // 내면의 소리
+        9: 'grid-column: 4; grid-row: 4;', // 최종 조언
+      };
+
+      // 모바일 레이아웃 (1x10 그리드) - 768px 이하에서 적용
+      const mobilePositions = {
+        0: 'grid-column: 1; grid-row: 1;', // 현재 상황
+        1: 'grid-column: 1; grid-row: 2;', // 도전
+        2: 'grid-column: 1; grid-row: 3;', // 과거
+        3: 'grid-column: 1; grid-row: 4;', // 잠재의식
+        4: 'grid-column: 1; grid-row: 5;', // 가능한 미래
+        5: 'grid-column: 1; grid-row: 6;', // 가까운 미래
+        6: 'grid-column: 1; grid-row: 7;', // 나의 접근
+        7: 'grid-column: 1; grid-row: 8;', // 주변 환경
+        8: 'grid-column: 1; grid-row: 9;', // 내면의 소리
+        9: 'grid-column: 1; grid-row: 10;', // 최종 조언
+      };
+
+      // 초소형 모바일 레이아웃은 제거 (768px 이하에서 바로 1열 적용)
+
+      return `
+        ${desktopPositions[$position]}
+        
+        @media (max-width: 1024px) {
+          ${tabletPositions[$position]}
+        }
+        
+        @media (max-width: 768px) {
+          ${mobilePositions[$position]}
+        }
+      `;
     }
     return '';
   }}
@@ -177,10 +262,19 @@ const PositionLabel = styled.div`
   border-radius: 12px;
   border: 1px solid rgba(218, 165, 32, 0.3);
   backdrop-filter: blur(5px);
+  white-space: nowrap;
   
   @media (max-width: 768px) {
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    margin-top: 0.3rem;
   }
 `;
 

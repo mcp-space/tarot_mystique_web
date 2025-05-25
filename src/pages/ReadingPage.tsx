@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Shuffle, Eye, Star, Moon } from 'lucide-react'
@@ -12,6 +12,7 @@ import {
 import { CardSpread } from '../components/CardSpread'
 import { getRandomCards } from '../data/majorArcana'
 import { DrawnCard, SpreadType, ReadingResult } from '../types/tarot'
+import { useTarotAnalytics } from '../hooks/useAnalytics'
 import toast from 'react-hot-toast'
 
 const ReadingSection = styled(Section)`
@@ -138,6 +139,8 @@ const ReadingPage: React.FC = () => {
   const [isReading, setIsReading] = useState(false)
   const [showResult, setShowResult] = useState(false)
   
+  const { logReading } = useTarotAnalytics()
+  
   const spreadOptions = [
     { type: 'single' as SpreadType, name: '오늘의 운세', icon: <Star />, description: '하루를 위한 한 장의 카드' },
     { type: 'three-card' as SpreadType, name: '과거 현재 미래', icon: <Eye />, description: '시간의 흐름으로 보는 운세' },
@@ -178,6 +181,28 @@ const ReadingPage: React.FC = () => {
     setDrawnCards(newDrawnCards)
     setIsReading(false)
     setShowResult(true)
+    
+    // 📊 타로 리딩 활동 로깅
+    try {
+      const overallInterpretation = newDrawnCards.map((dc, idx) => 
+        `${idx + 1}. ${dc.card.nameKr} (${dc.card.name})${dc.reversed ? ' (역방향)' : ''}: ${dc.interpretation}`
+      ).join('\n')
+      
+      const spreadNames = {
+        'single': 'single',
+        'three-card': 'three-card',
+        'celtic-cross': 'celtic-cross'
+      }
+      
+      await logReading({
+        spreadType: spreadNames[selectedSpread],
+        question: question.trim(),
+        cards: newDrawnCards,
+        interpretation: overallInterpretation
+      })
+    } catch (error) {
+      console.warn('Failed to log tarot reading activity:', error)
+    }
     
     toast.success('✨ 카드가 답을 알려드릴게요!')
   }
@@ -226,7 +251,7 @@ const ReadingPage: React.FC = () => {
               key={option.type}
               $isActive={selectedSpread === option.type}
               onClick={() => setSelectedSpread(option.type)}
-              whileHover={{ scale: 1.05 }}
+              whileHover={selectedSpread === option.type ? {} : { scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               {option.icon}

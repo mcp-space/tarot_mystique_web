@@ -112,6 +112,40 @@ export const GlobalStyles = createGlobalStyle<{ theme: MysticalTheme }>`
     animation: pulse 2s ease-in-out infinite;
   }
 
+  /* 반응형 유틸리티 클래스 */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    
+    @media (max-width: 768px) {
+      padding: 0 1rem;
+    }
+    
+    @media (max-width: 480px) {
+      padding: 0 0.8rem;
+    }
+  }
+  
+  .hide-mobile {
+    @media (max-width: 768px) {
+      display: none !important;
+    }
+  }
+  
+  .hide-desktop {
+    @media (min-width: 769px) {
+      display: none !important;
+    }
+  }
+  
+  .text-center-mobile {
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+
   /* Button reset */
   button {
     border: none;

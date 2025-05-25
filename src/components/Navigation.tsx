@@ -119,6 +119,14 @@ const NavContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem 0.8rem;
+  }
 `;
 
 const Logo = styled(Link)`
@@ -133,6 +141,16 @@ const Logo = styled(Link)`
   &:hover {
     color: #ffd700;
   }
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    gap: 0.4rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    gap: 0.3rem;
+  }
 `;
 
 const LogoText = styled.span`
@@ -145,6 +163,14 @@ const LogoText = styled.span`
 const NavLinks = styled.div`
   display: flex;
   gap: 1rem;
+  
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 0.3rem;
+  }
 `;
 
 const NavLink = styled(motion(Link))<{ $isActive: boolean }>`
@@ -159,6 +185,7 @@ const NavLink = styled(motion(Link))<{ $isActive: boolean }>`
   border: 1px solid ${props => props.$isActive ? 'rgba(218, 165, 32, 0.3)' : 'transparent'};
   transition: all 0.3s ease;
   font-weight: ${props => props.$isActive ? '600' : '400'};
+  font-size: 0.9rem;
 
   &:hover {
     color: #daa520;
@@ -167,9 +194,17 @@ const NavLink = styled(motion(Link))<{ $isActive: boolean }>`
   }
 
   @media (max-width: 768px) {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    
     span {
       display: none;
     }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.3rem 0.6rem;
+    border-radius: 16px;
   }
 `;
 
@@ -185,6 +220,7 @@ const GuideButton = styled(motion.button)`
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 400;
+  font-size: 0.9rem;
 
   &:hover {
     color: #daa520;
@@ -193,9 +229,17 @@ const GuideButton = styled(motion.button)`
   }
 
   @media (max-width: 768px) {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    
     span {
       display: none;
     }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.3rem 0.6rem;
+    border-radius: 16px;
   }
 `;
 
@@ -219,11 +263,31 @@ const GuideModal = styled(motion.div)`
   border-radius: 16px;
   padding: 0;
   max-width: 500px;
-  width: 90%;
+  width: calc(100% - 2rem);
   max-height: 80vh;
-  overflow-y: auto;
+  overflow: hidden;
   z-index: 2000;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  
+  @media (max-width: 768px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vw - 2rem);
+    max-width: none;
+    max-height: calc(100vh - 4rem);
+    border-radius: 12px;
+    margin: 0;
+  }
+  
+  @media (max-width: 480px) {
+    width: calc(100vw - 1rem);
+    max-height: calc(100vh - 2rem);
+    border-radius: 8px;
+  }
 `;
 
 const GuideHeader = styled.div`
@@ -232,11 +296,28 @@ const GuideHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
   
   h3 {
     color: #daa520;
     margin: 0;
     font-size: 1.3rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+    
+    h3 {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem;
+    
+    h3 {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -257,6 +338,16 @@ const CloseButton = styled.button`
 
 const GuideContent = styled.div`
   padding: 1.5rem;
+  flex: 1;
+  overflow-y: auto;
+  
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
 `;
 
 const GuideCard = styled.div`
@@ -279,6 +370,7 @@ const GuideCard = styled.div`
     color: #e0e0e0;
     line-height: 1.6;
     margin-bottom: 0.5rem;
+    font-size: 0.95rem;
     
     &:last-child {
       margin-bottom: 0;
@@ -289,6 +381,46 @@ const GuideCard = styled.div`
     color: #b0b0b0;
     font-style: italic;
     font-size: 0.9rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.9rem;
+    border-radius: 6px;
+    
+    h4 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    
+    p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 0.4rem;
+    }
+    
+    .example {
+      font-size: 0.85rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    
+    h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    p {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 0.3rem;
+    }
+    
+    .example {
+      font-size: 0.8rem;
+    }
   }
 `;
 
