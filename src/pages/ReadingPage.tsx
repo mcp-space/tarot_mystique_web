@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Shuffle, Eye, Star, Moon, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import { Shuffle, Eye, Star, Moon } from 'lucide-react'
 import {
   MysticalContainer,
   Section,
@@ -131,73 +131,12 @@ const ResultText = styled.p`
   margin-bottom: 1rem;
 `
 
-const GuideSection = styled(motion.div)`
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: rgba(26, 26, 46, 0.6);
-  border: 1px solid rgba(218, 165, 32, 0.3);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-`
-
-const GuideToggle = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  padding: 0.8rem;
-  background: transparent;
-  border: none;
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    color: ${({ theme }) => theme.colors.secondary};
-  }
-`
-
-const GuideContent = styled(motion.div)`
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(218, 165, 32, 0.2);
-`
-
-const GuideCard = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  
-  h4 {
-    color: ${({ theme }) => theme.colors.primary};
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-  }
-  
-  p {
-    color: ${({ theme }) => theme.colors.text.primary};
-    line-height: 1.6;
-    margin-bottom: 0.5rem;
-  }
-  
-  .example {
-    color: ${({ theme }) => theme.colors.text.muted};
-    font-style: italic;
-    font-size: 0.9rem;
-  }
-`
-
 const ReadingPage: React.FC = () => {
   const [selectedSpread, setSelectedSpread] = useState<SpreadType>('single')
   const [question, setQuestion] = useState('')
   const [drawnCards, setDrawnCards] = useState<DrawnCard[]>([])
   const [isReading, setIsReading] = useState(false)
   const [showResult, setShowResult] = useState(false)
-  const [showGuide, setShowGuide] = useState(false)
   
   const spreadOptions = [
     { type: 'single' as SpreadType, name: '오늘의 운세', icon: <Star />, description: '하루를 위한 한 장의 카드' },
@@ -280,45 +219,6 @@ const ReadingPage: React.FC = () => {
           마음 속 깊은 질문을 떠올리며 당신만의 스프레드를 선택하세요
         </MysticalSubtitle>
         
-        {/* 가이드 섹션 */}
-        <GuideSection>
-          <GuideToggle onClick={() => setShowGuide(!showGuide)}>
-            <HelpCircle size={20} />
-            타로 가이드 {showGuide ? '접기' : '보기'}
-            {showGuide ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </GuideToggle>
-          
-          <AnimatePresence>
-            {showGuide && (
-              <GuideContent
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <GuideCard>
-                  <h4>🌟 오늘의 운세</h4>
-                  <p>하나의 카드로 오늘 하루의 에너지와 조언을 받아보세요.</p>
-                  <p className="example">예: "오늘 하루 어떻게 보내면 좋을까요?"</p>
-                </GuideCard>
-                
-                <GuideCard>
-                  <h4>⏳ 과거현재미래</h4>
-                  <p>세 장의 카드로 과거의 영향, 현재 상황, 미래의 가능성을 살펴봅니다.</p>
-                  <p className="example">예: "내 연애는 어떻게 흘러갈까요?"</p>
-                </GuideCard>
-                
-                <GuideCard>
-                  <h4>🔮 종합운세</h4>
-                  <p>10장의 카드로 인생의 모든 영역을 깊이 있게 분석합니다.</p>
-                  <p>현재 상황, 장애물, 숨겨진 영향, 조언 등을 포괄적으로 봅니다.</p>
-                  <p className="example">예: "내 인생에서 중요한 결정을 앞두고 있어요"</p>
-                </GuideCard>
-              </GuideContent>
-            )}
-          </AnimatePresence>
-        </GuideSection>
-        
         {/* 스프레드 선택 */}
         <SpreadSelector>
           {spreadOptions.map((option) => (
@@ -343,12 +243,10 @@ const ReadingPage: React.FC = () => {
           <QuestionTextarea
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="어떤 것이 궁금하신가요? 편하게 적어보세요 💫
+            placeholder="어떤 것이 궁금하신가요? 💫
 
-💝 연애: '좋아하는 사람과 잘 될까요?'
-💼 일/학업: '이번 프로젝트 결과가 어떨까요?'
-🏠 일상: '요즘 무기력한데 어떻게 해야 할까요?'
-🎯 결정: '이 선택이 맞는 걸까요?'"
+예: 오늘 하루 어떻게 보낼까요?
+예: 좋아하는 사람과 잘 될까요?"
             maxLength={500}
           />
         </QuestionInput>
