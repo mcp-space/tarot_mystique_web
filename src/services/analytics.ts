@@ -4,15 +4,17 @@ import { UserActivity } from '../types/tarot'
 // 🔮 유저 활동 추적 서비스
 class AnalyticsService {
   private client: AxiosInstance
-  private baseURL: string = '182.209.102.132:8080/api/v1/tarot'
+  private baseURL: string
 
   constructor() {
-    // 환경변수에서 analytics URL 가져오기 (선택사항)
-    const analyticsUrl = import.meta.env.VITE_ANALYTICS_URL || this.baseURL
+    // 프로덕션에서는 Vercel API 프록시 사용, 개발환경에서는 직접 연결
+    this.baseURL = import.meta.env.PROD 
+      ? '/api/analytics'  // Vercel API 프록시 사용
+      : 'http://182.209.102.132:8080/api/v1/tarot'  // 개발환경 직접 연결
     
     this.client = axios.create({
-      baseURL: `http://${analyticsUrl}`,
-      timeout: 5000,
+      baseURL: this.baseURL,
+      timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -32,18 +34,28 @@ class AnalyticsService {
           data: error.response?.data,
           url: error.config?.url,
           method: error.config?.method,
-          requestData: error.config?.data
+          requestData: error.config?.data,
+          baseURL: this.baseURL
         })
         // 에러를 던지지 않고 무시 (사용자 경험에 영향 없도록)
         return Promise.resolve({ data: null })
       }
     )
+
+    console.log('📊 Analytics service initialized with baseURL:', this.baseURL)
+  }
+
+  // Analytics 활성화 여부 확인 (기본값: true)
+  private isAnalyticsEnabled(): boolean {
+    const envValue = import.meta.env.VITE_ENABLE_ANALYTICS
+    // 환경변수가 없거나 'true'이면 활성화 (기본값 true)
+    return envValue === undefined || envValue === 'true' || envValue === true
   }
 
   // Analytics URL 런타임 변경 (필요시)
   updateBaseURL(newUrl: string) {
     this.baseURL = newUrl
-    this.client.defaults.baseURL = `http://${newUrl}`
+    this.client.defaults.baseURL = newUrl
     console.log('📊 Analytics URL updated to:', newUrl)
   }
 
@@ -73,7 +85,7 @@ class AnalyticsService {
     interpretation: string
   }): Promise<void> {
     // Analytics 기능이 비활성화된 경우 로깅하지 않음
-    if (import.meta.env.VITE_ENABLE_ANALYTICS !== 'true') {
+    if (!this.isAnalyticsEnabled()) {
       console.log('📊 Analytics disabled, skipping tarot reading log')
       return
     }
@@ -97,18 +109,23 @@ class AnalyticsService {
         })
       }
 
-      console.log('📊 Sending tarot reading data:', {
-        url: `${this.client.defaults.baseURL}/add`,
+      console.log('📊 Sending tarot reading data via proxy:', {
+        url: this.baseURL,
         method: 'POST',
-        data: activityData
+        data: activityData,
+        analyticsEnabled: this.isAnalyticsEnabled(),
+        isProd: import.meta.env.PROD
       })
 
+      // 프로덕션에서는 프록시 엔드포인트로, 개발환경에서는 /add 경로로 전송
+      const endpoint = import.meta.env.PROD ? '' : '/add'
+      
       // 비동기로 전송 (await 하지 않음)
-      this.client.post('/add', activityData).catch(error => {
+      this.client.post(endpoint, activityData).catch(error => {
         console.warn('Failed to log tarot reading:', error)
       })
       
-      console.log('📊 Tarot reading activity logged:', activityData.category)
+      console.log('📊 Tarot reading activity logged successfully via proxy:', data.category)
     } catch (error) {
       console.warn('📊 Failed to log tarot reading activity:', error)
     }
@@ -116,7 +133,7 @@ class AnalyticsService {
 
   // 카드 상세 조회 활동 로깅
   async logCardView(cardName: string, cardNameKr: string): Promise<void> {
-    if (import.meta.env.VITE_ENABLE_ANALYTICS !== 'true') {
+    if (!this.isAnalyticsEnabled()) {
       console.log('📊 Analytics disabled, skipping card view log')
       return
     }
@@ -124,41 +141,11 @@ class AnalyticsService {
     // 카드 상세 보기 로깅은 비활성화
     console.log('📊 Card view logging disabled:', cardName)
     return
-
-    try {
-      const userIP = await this.getUserIP()
-      
-      const activityData: UserActivity = {
-        userIp: userIP,
-        category: 'card_view',
-        userContent: `${cardName} (${cardNameKr})`,
-        resultContent: JSON.stringify({
-          action: 'view_card_detail',
-          card: cardName,
-          cardKr: cardNameKr,
-          timestamp: new Date().toISOString()
-        })
-      }
-
-      console.log('📊 Sending card view data:', {
-        url: `${this.client.defaults.baseURL}/add`,
-        method: 'POST',
-        data: activityData
-      })
-
-      this.client.post('/add', activityData).catch(error => {
-        console.warn('Failed to log card view:', error)
-      })
-      
-      console.log('📊 Card view activity logged:', cardName)
-    } catch (error) {
-      console.warn('📊 Failed to log card view activity:', error)
-    }
   }
 
   // 페이지 방문 활동 로깅
   async logPageVisit(pageName: string, additionalData?: any): Promise<void> {
-    if (import.meta.env.VITE_ENABLE_ANALYTICS !== 'true') {
+    if (!this.isAnalyticsEnabled()) {
       console.log('📊 Analytics disabled, skipping page visit log')
       return
     }
@@ -166,36 +153,6 @@ class AnalyticsService {
     // 페이지 방문 로깅은 비활성화
     console.log('📊 Page visit logging disabled:', pageName)
     return
-
-    try {
-      const userIP = await this.getUserIP()
-      
-      const activityData: UserActivity = {
-        userIp: userIP,
-        category: 'page_visit',
-        userContent: pageName,
-        resultContent: JSON.stringify({
-          page: pageName,
-          url: window.location.pathname,
-          timestamp: new Date().toISOString(),
-          ...additionalData
-        })
-      }
-
-      console.log('📊 Sending page visit data:', {
-        url: `${this.client.defaults.baseURL}/add`,
-        method: 'POST',
-        data: activityData
-      })
-
-      this.client.post('/add', activityData).catch(error => {
-        console.warn('Failed to log page visit:', error)
-      })
-      
-      console.log('📊 Page visit logged:', pageName)
-    } catch (error) {
-      console.warn('📊 Failed to log page visit activity:', error)
-    }
   }
 }
 
