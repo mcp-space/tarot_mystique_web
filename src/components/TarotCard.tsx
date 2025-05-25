@@ -71,20 +71,40 @@ export const TarotCard: React.FC<TarotCardProps> = ({
 const getCardSize = (size: string) => {
   switch (size) {
     case 'small':
-      return { width: '120px', height: '200px' };
+      return { 
+        width: '120px', 
+        height: '200px',
+        mobileWidth: '280px',  // 훨씬 더 크게
+        mobileHeight: '420px'
+      };
     case 'large':
-      return { width: '280px', height: '450px' };
+      return { 
+        width: '280px', 
+        height: '450px',
+        mobileWidth: '240px',
+        mobileHeight: '380px'
+      };
     default:
-      return { width: '180px', height: '300px' };
+      return { 
+        width: '180px', 
+        height: '300px',
+        mobileWidth: '200px',
+        mobileHeight: '320px'
+      };
   }
 };
 
 const CardContainer = styled(motion.div)<{ $size: string }>`
   ${({ $size }) => {
-    const { width, height } = getCardSize($size);
+    const { width, height, mobileWidth, mobileHeight } = getCardSize($size);
     return `
       width: ${width};
       height: ${height};
+      
+      @media (max-width: 768px) {
+        width: ${mobileWidth};
+        height: ${mobileHeight};
+      }
     `;
   }}
   
@@ -130,6 +150,11 @@ const BackSymbol = styled.div`
   margin-bottom: 1rem;
   animation: pulse 2s infinite;
   
+  @media (max-width: 768px) {
+    font-size: 4rem;  // 더 크게
+    margin-bottom: 1rem;
+  }
+  
   @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -142,11 +167,21 @@ const BackText = styled.div`
   font-size: 1.2rem;
   letter-spacing: 3px;
   margin-bottom: 0.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;  // 더 크게
+    letter-spacing: 4px;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const BackDecoration = styled.div`
   font-size: 0.8rem;
   opacity: 0.7;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;  // 더 크게
+  }
 `;
 
 const CardFront = styled(CardSide)<{ $isReversed: boolean }>`
@@ -162,6 +197,10 @@ const CardHeader = styled.div`
   padding: 1rem;
   text-align: center;
   border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;  // 더 큰 패딩
+  }
 `;
 
 const CardNumber = styled.div`
@@ -169,6 +208,11 @@ const CardNumber = styled.div`
   font-weight: bold;
   color: #8a2be2;
   margin-bottom: 0.3rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;  // 더 크게
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const CardName = styled.div`
@@ -176,12 +220,21 @@ const CardName = styled.div`
   font-weight: 600;
   color: #4b0082;
   margin-bottom: 0.2rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;  // 더 크게
+    margin-bottom: 0.3rem;
+  }
 `;
 
 const CardNameKr = styled.div`
   font-size: 1rem;
   font-weight: bold;
   color: #1a1a2e;
+  
+  @media (max-width: 768px) {
+    font-size: 1.4rem;  // 더 크게
+  }
 `;
 
 const CardImageContainer = styled.div`
@@ -206,6 +259,10 @@ const CardSymbol = styled.div<{ $isReversed: boolean }>`
   text-align: center;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   transform: ${props => props.$isReversed ? 'rotate(180deg)' : 'rotate(0deg)'};
+  
+  @media (max-width: 768px) {
+    font-size: 6rem;  // 훨씬 더 크게
+  }
 `;
 
 const ElementBadge = styled.div`
@@ -219,18 +276,40 @@ const ElementBadge = styled.div`
   font-size: 0.6rem;
   font-weight: bold;
   text-transform: uppercase;
+  
+  @media (max-width: 768px) {
+    top: 0.3rem;
+    right: 0.3rem;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.5rem;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.4rem;
+    padding: 0.1rem 0.2rem;
+    border-radius: 4px;
+  }
 `;
 
 const CardFooter = styled.div`
   padding: 1rem;
   text-align: center;
   border-top: 1px solid rgba(218, 165, 32, 0.3);
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;  // 더 큰 패딩
+  }
 `;
 
 const KeywordDisplay = styled.div`
   font-size: 0.7rem;
   color: #6c757d;
   font-style: italic;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;  // 더 크게
+  }
 `;
 
 export default TarotCard;

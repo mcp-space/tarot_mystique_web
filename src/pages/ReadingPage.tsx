@@ -226,7 +226,7 @@ const ReadingPage: React.FC = () => {
               key={option.type}
               $isActive={selectedSpread === option.type}
               onClick={() => setSelectedSpread(option.type)}
-              whileHover={{ scale: 1.05 }}
+              whileHover={selectedSpread === option.type ? {} : { scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               {option.icon}
