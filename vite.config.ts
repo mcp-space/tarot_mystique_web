@@ -13,6 +13,15 @@ export default defineConfig({
       '@': '/src'
     }
   },
+  optimizeDeps: {
+    include: ['lucide-react'],
+    force: true
+  },
+  build: {
+    commonjsOptions: {
+      include: [/lucide-react/, /node_modules/]
+    }
+  },
   css: {
     preprocessorOptions: {
       scss: {

@@ -2,6 +2,7 @@
   "name": "tarot-mystique-web",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "🔮 Mystical Tarot Card Reading Application - Unveil Your Destiny",
   "scripts": {
     "dev": "vite",
