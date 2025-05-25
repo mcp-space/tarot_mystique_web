@@ -72,16 +72,16 @@ const getPositionLabel = (spreadType: SpreadType, position: number): string => {
       return ['과거', '현재', '미래'][position] || '';
     case 'celtic-cross':
       return [
-        '현재 상황',
-        '가능한 결과', 
-        '과거의 영향',
+        '현재',
+        '도전',
+        '과거',
         '잠재의식',
         '가능한 미래',
-        '당신의 접근법',
-        '외부 영향',
-        '희망과 두려움',
-        '최종 결과',
-        '조언'
+        '가까운 미래',
+        '나의 접근',
+        '주변 환경',
+        '내면의 소리',
+        '최종 조언'
       ][position] || '';
     default:
       return '';
