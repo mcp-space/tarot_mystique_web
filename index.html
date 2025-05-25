@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/tarot-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#1a0b2e" />
+    <meta name="msapplication-navbutton-color" content="#1a0b2e" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
     <title>🔮 Tarot Mystique - Unveil Your Destiny</title>
     <meta name="description" content="Discover the ancient wisdom of tarot cards. Experience mystical divination through our enchanting digital tarot reader." />
     <meta name="keywords" content="tarot, mystical, divination, fortune telling, major arcana, spiritual guidance" />
@@ -14,17 +20,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Julius+Sans+One&display=swap" rel="stylesheet">
     
     <style>
+      :root {
+        --bg-primary: #1a0b2e;
+        --bg-secondary: #16213e;
+        --bg-dark: #0f0f0f;
+      }
+      
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
       
+      html {
+        background-color: var(--bg-primary);
+        min-height: 100%;
+      }
+      
       body {
-        background: radial-gradient(ellipse at center, #1a0b2e 0%, #16213e 50%, #0f0f0f 100%);
+        background: radial-gradient(ellipse at center, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-dark) 100%);
+        background-attachment: fixed;
+        background-color: var(--bg-primary);
         min-height: 100vh;
         overflow-x: hidden;
         font-family: 'Crimson Text', serif;
+        /* 오버스크롤 방지 */
+        overscroll-behavior: none;
       }
       
       /* Loading Animation */

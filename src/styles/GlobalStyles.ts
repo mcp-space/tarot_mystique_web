@@ -10,6 +10,10 @@ export const GlobalStyles = createGlobalStyle<{ theme: MysticalTheme }>`
 
   html {
     scroll-behavior: smooth;
+    background: ${({ theme }) => theme.colors.background.dark};
+    min-height: 100%;
+    /* 오버스크롤 시 배경색 설정 */
+    overscroll-behavior: none;
   }
 
   body {
@@ -21,10 +25,16 @@ export const GlobalStyles = createGlobalStyle<{ theme: MysticalTheme }>`
       ${({ theme }) => theme.colors.background.dark} 100%
     );
     background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     color: ${({ theme }) => theme.colors.text.primary};
     min-height: 100vh;
     overflow-x: hidden;
     line-height: 1.6;
+    /* 오버스크롤 바운스 방지 */
+    overscroll-behavior-y: none;
+    /* iOS Safari 오버스크롤 배경색 */
+    background-color: ${({ theme }) => theme.colors.background.dark};
     
     /* Mystical scrollbar */
     &::-webkit-scrollbar {
