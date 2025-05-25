@@ -94,8 +94,8 @@ const getCardSize = (size: string) => {
   switch (size) {
     case 'small':
       return { 
-        width: '120px', 
-        height: '200px',
+        width: '140px', 
+        height: '230px',
         mobileWidth: '280px',  // 훨씬 더 크게
         mobileHeight: '420px'
       };
@@ -173,8 +173,8 @@ const BackPattern = styled.div`
 `;
 
 const BackSymbol = styled.div`
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
   animation: pulse 2s infinite;
   
   @media (max-width: 768px) {
@@ -191,9 +191,9 @@ const BackSymbol = styled.div`
 const BackText = styled.div`
   font-family: serif;
   font-weight: bold;
-  font-size: 1.2rem;
-  letter-spacing: 3px;
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.4rem;
   
   @media (max-width: 768px) {
     font-size: 1.5rem;  // 더 크게

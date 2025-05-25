@@ -189,9 +189,9 @@ const ReadingPage: React.FC = () => {
       ).join('\n')
       
       const spreadNames = {
-        'single': '오늘의_운세',
-        'three-card': '과거현재미래',
-        'celtic-cross': '종합운세'
+        'single': 'single',
+        'three-card': 'three-card',
+        'celtic-cross': 'celtic-cross'
       }
       
       await logReading({
