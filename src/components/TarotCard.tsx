@@ -1,0 +1,236 @@
+import React from 'react';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { TarotCardData } from '../types/tarot';
+
+interface TarotCardProps {
+  card: TarotCardData;
+  isRevealed?: boolean;
+  size?: 'small' | 'medium' | 'large';
+  isReversed?: boolean;
+  onClick?: () => void;
+  className?: string;
+}
+
+export const TarotCard: React.FC<TarotCardProps> = ({
+  card,
+  isRevealed = false,
+  size = 'medium',
+  isReversed = false,
+  onClick,
+  className
+}) => {
+  return (
+    <CardContainer
+      $size={size}
+      className={className}
+      onClick={onClick}
+      whileHover={onClick ? { scale: 1.02, y: -5 } : {}}
+      whileTap={onClick ? { scale: 0.98 } : {}}
+      transition={{ duration: 0.2 }}
+    >
+      <CardInner $isRevealed={isRevealed}>
+        <CardBack>
+          <BackPattern>
+            <BackSymbol>🔮</BackSymbol>
+            <BackText>TAROT</BackText>
+            <BackDecoration>✨ ⭐ ✨</BackDecoration>
+          </BackPattern>
+        </CardBack>
+        
+        <CardFront $isReversed={isReversed}>
+          <CardHeader>
+            <CardNumber>{card.numerology}</CardNumber>
+            <CardName>{card.name}</CardName>
+            <CardNameKr>{card.nameKr}</CardNameKr>
+          </CardHeader>
+          
+          <CardImageContainer>
+            <CardImage>
+              <CardSymbol $isReversed={isReversed}>
+                {card.symbol}
+              </CardSymbol>
+            </CardImage>
+            
+            <ElementBadge>
+              {card.element || 'Major'}
+            </ElementBadge>
+          </CardImageContainer>
+          
+          <CardFooter>
+            <KeywordDisplay>
+              {card.keywordsKr.slice(0, 2).join(' • ')}
+            </KeywordDisplay>
+          </CardFooter>
+        </CardFront>
+      </CardInner>
+    </CardContainer>
+  );
+};
+
+const getCardSize = (size: string) => {
+  switch (size) {
+    case 'small':
+      return { width: '120px', height: '200px' };
+    case 'large':
+      return { width: '280px', height: '450px' };
+    default:
+      return { width: '180px', height: '300px' };
+  }
+};
+
+const CardContainer = styled(motion.div)<{ $size: string }>`
+  ${({ $size }) => {
+    const { width, height } = getCardSize($size);
+    return `
+      width: ${width};
+      height: ${height};
+    `;
+  }}
+  
+  perspective: 1000px;
+  cursor: ${props => props.onClick ? 'pointer' : 'default'};
+  user-select: none;
+`;
+
+const CardInner = styled.div<{ $isRevealed: boolean }>`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform: ${props => props.$isRevealed ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+`;
+
+const CardSide = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+`;
+
+const CardBack = styled(CardSide)`
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border: 2px solid #daa520;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const BackPattern = styled.div`
+  text-align: center;
+  color: #daa520;
+`;
+
+const BackSymbol = styled.div`
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+`;
+
+const BackText = styled.div`
+  font-family: serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+`;
+
+const BackDecoration = styled.div`
+  font-size: 0.8rem;
+  opacity: 0.7;
+`;
+
+const CardFront = styled(CardSide)<{ $isReversed: boolean }>`
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid #daa520;
+  transform: rotateY(180deg) ${props => props.$isReversed ? 'rotate(180deg)' : 'rotate(0deg)'};
+  display: flex;
+  flex-direction: column;
+  color: #1a1a2e;
+`;
+
+const CardHeader = styled.div`
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+`;
+
+const CardNumber = styled.div`
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #8a2be2;
+  margin-bottom: 0.3rem;
+`;
+
+const CardName = styled.div`
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b0082;
+  margin-bottom: 0.2rem;
+`;
+
+const CardNameKr = styled.div`
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1a1a2e;
+`;
+
+const CardImageContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem;
+`;
+
+const CardImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const CardSymbol = styled.div<{ $isReversed: boolean }>`
+  font-size: 4rem;
+  text-align: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transform: ${props => props.$isReversed ? 'rotate(180deg)' : 'rotate(0deg)'};
+`;
+
+const ElementBadge = styled.div`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: linear-gradient(45deg, #8a2be2, #4b0082);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+`;
+
+const CardFooter = styled.div`
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid rgba(218, 165, 32, 0.3);
+`;
+
+const KeywordDisplay = styled.div`
+  font-size: 0.7rem;
+  color: #6c757d;
+  font-style: italic;
+`;
+
+export default TarotCard;
