@@ -63,7 +63,7 @@ export interface Reading {
 
 // 유저 활동 추적을 위한 인터페이스
 export interface UserActivity {
-  ip: string
+  userIp: string
   category: string
   userContent: string
   resultContent: string

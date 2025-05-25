@@ -59,6 +59,8 @@ export const TarotCard: React.FC<TarotCardProps> = ({
         
         {/* 기존 카드 정보 UI (호버시 표시) */}
         <CardFront $isReversed={isReversed}>
+          {isReversed && <ReversedBadge>역방향</ReversedBadge>}
+          
           <CardHeader>
             <CardNumber>{card.numerology}</CardNumber>
             <CardName>{card.name}</CardName>
@@ -67,7 +69,7 @@ export const TarotCard: React.FC<TarotCardProps> = ({
           
           <CardImageContainer>
             <CardImage>
-              <CardSymbol $isReversed={isReversed}>
+              <CardSymbol $isReversed={false}>
                 {card.element || 'MAJOR'}
               </CardSymbol>
             </CardImage>
@@ -139,11 +141,11 @@ const CardInner = styled.div<{ $isRevealed: boolean }>`
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
-  transform: ${props => props.$isRevealed ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+  transform: ${props => props.$isRevealed ? 'rotateY(0deg)' : 'rotateY(0deg)'};
   
   /* 호버시 카드 뒤집기 효과 */
   ${CardContainer}:hover & {
-    transform: ${props => props.$isRevealed ? 'rotateY(360deg)' : 'rotateY(180deg)'};
+    transform: ${props => props.$isRevealed ? 'rotateY(-180deg)' : 'rotateY(-180deg)'};
   }
 `;
 
@@ -159,7 +161,7 @@ const CardSide = styled.div`
 
 const CardBack = styled(CardSide)`
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  border: 2px solid #daa520;
+  border: 2px solid #000000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -211,8 +213,8 @@ const BackDecoration = styled.div`
 
 const CardFront = styled(CardSide)<{ $isReversed: boolean }>`
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border: 2px solid #daa520;
-  transform: rotateY(180deg) ${props => props.$isReversed ? 'rotate(180deg)' : 'rotate(0deg)'};
+  border: 2px solid #000000;
+  transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
   color: #1a1a2e;
@@ -221,8 +223,8 @@ const CardFront = styled(CardSide)<{ $isReversed: boolean }>`
 // 이미지만 표시하는 면 (기본 상태)
 const CardImageOnly = styled(CardSide)<{ $isReversed: boolean }>`
   background: transparent;
-  border: 2px solid #daa520;
-  transform: rotateY(0deg) ${props => props.$isReversed ? 'rotate(180deg)' : 'rotate(0deg)'};
+  border: 2px solid #000000;
+  transform: rotateY(0deg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -308,6 +310,28 @@ const CardSymbol = styled.div<{ $isReversed: boolean }>`
   
   @media (max-width: 768px) {
     font-size: 6rem;  // 훨씬 더 크게
+  }
+`;
+
+const ReversedBadge = styled.div`
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: linear-gradient(45deg, #dc3545, #c82333);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+  
+  @media (max-width: 768px) {
+    top: 0.8rem;
+    left: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    border-radius: 10px;
   }
 `;
 

@@ -53,7 +53,7 @@ export const useTarotAnalytics = () => {
   }) => {
     try {
       await analyticsService.logTarotReading({
-        category: `tarot_reading_${data.spreadType}`,
+        category: `${data.spreadType}`,
         question: data.question,
         cards: data.cards,
         interpretation: data.interpretation

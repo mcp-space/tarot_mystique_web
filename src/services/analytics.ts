@@ -20,9 +20,20 @@ class AnalyticsService {
 
     // 에러 처리 (활동 로깅은 실패해도 서비스에 영향 없도록)
     this.client.interceptors.response.use(
-      (response) => response,
+      (response) => {
+        console.log('📊 Analytics response success:', response.status, response.data)
+        return response
+      },
       (error) => {
-        console.warn('📊 Analytics logging failed:', error.message)
+        console.error('📊 Analytics logging failed:', {
+          message: error.message,
+          status: error.response?.status,
+          statusText: error.response?.statusText,
+          data: error.response?.data,
+          url: error.config?.url,
+          method: error.config?.method,
+          requestData: error.config?.data
+        })
         // 에러를 던지지 않고 무시 (사용자 경험에 영향 없도록)
         return Promise.resolve({ data: null })
       }
@@ -71,7 +82,7 @@ class AnalyticsService {
       const userIP = await this.getUserIP()
       
       const activityData: UserActivity = {
-        ip: userIP,
+        userIp: userIP,
         category: data.category,
         userContent: data.question,
         resultContent: JSON.stringify({
@@ -85,6 +96,12 @@ class AnalyticsService {
           timestamp: new Date().toISOString()
         })
       }
+
+      console.log('📊 Sending tarot reading data:', {
+        url: `${this.client.defaults.baseURL}/add`,
+        method: 'POST',
+        data: activityData
+      })
 
       // 비동기로 전송 (await 하지 않음)
       this.client.post('/add', activityData).catch(error => {
@@ -104,11 +121,15 @@ class AnalyticsService {
       return
     }
 
+    // 카드 상세 보기 로깅은 비활성화
+    console.log('📊 Card view logging disabled:', cardName)
+    return
+
     try {
       const userIP = await this.getUserIP()
       
       const activityData: UserActivity = {
-        ip: userIP,
+        userIp: userIP,
         category: 'card_view',
         userContent: `${cardName} (${cardNameKr})`,
         resultContent: JSON.stringify({
@@ -118,6 +139,12 @@ class AnalyticsService {
           timestamp: new Date().toISOString()
         })
       }
+
+      console.log('📊 Sending card view data:', {
+        url: `${this.client.defaults.baseURL}/add`,
+        method: 'POST',
+        data: activityData
+      })
 
       this.client.post('/add', activityData).catch(error => {
         console.warn('Failed to log card view:', error)
@@ -136,11 +163,15 @@ class AnalyticsService {
       return
     }
 
+    // 페이지 방문 로깅은 비활성화
+    console.log('📊 Page visit logging disabled:', pageName)
+    return
+
     try {
       const userIP = await this.getUserIP()
       
       const activityData: UserActivity = {
-        ip: userIP,
+        userIp: userIP,
         category: 'page_visit',
         userContent: pageName,
         resultContent: JSON.stringify({
@@ -150,6 +181,12 @@ class AnalyticsService {
           ...additionalData
         })
       }
+
+      console.log('📊 Sending page visit data:', {
+        url: `${this.client.defaults.baseURL}/add`,
+        method: 'POST',
+        data: activityData
+      })
 
       this.client.post('/add', activityData).catch(error => {
         console.warn('Failed to log page visit:', error)
