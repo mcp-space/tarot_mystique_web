@@ -96,36 +96,52 @@ const getCardSize = (size: string) => {
       return { 
         width: '140px', 
         height: '230px',
-        mobileWidth: '280px',  // 훨씬 더 크게
-        mobileHeight: '420px'
+        mobileWidth: '120px',
+        mobileHeight: '200px',
+        tabletWidth: '130px',
+        tabletHeight: '215px'
       };
     case 'large':
       return { 
         width: '280px', 
         height: '450px',
-        mobileWidth: '240px',
-        mobileHeight: '380px'
+        mobileWidth: '200px',
+        mobileHeight: '320px',
+        tabletWidth: '240px',
+        tabletHeight: '380px'
       };
-    default:
+    default: // medium
       return { 
         width: '180px', 
         height: '300px',
-        mobileWidth: '200px',
-        mobileHeight: '320px'
+        mobileWidth: '160px',
+        mobileHeight: '260px',
+        tabletWidth: '170px',
+        tabletHeight: '280px'
       };
   }
 };
 
 const CardContainer = styled(motion.div)<{ $size: string }>`
   ${({ $size }) => {
-    const { width, height, mobileWidth, mobileHeight } = getCardSize($size);
+    const { width, height, mobileWidth, mobileHeight, tabletWidth, tabletHeight } = getCardSize($size);
     return `
       width: ${width};
       height: ${height};
       
+      @media (max-width: 1024px) {
+        width: ${tabletWidth};
+        height: ${tabletHeight};
+      }
+      
       @media (max-width: 768px) {
         width: ${mobileWidth};
         height: ${mobileHeight};
+      }
+      
+      @media (max-width: 480px) {
+        width: calc(${mobileWidth} * 0.9);
+        height: calc(${mobileHeight} * 0.9);
       }
     `;
   }}
@@ -133,6 +149,16 @@ const CardContainer = styled(motion.div)<{ $size: string }>`
   perspective: 1000px;
   cursor: ${props => props.onClick ? 'pointer' : 'default'};
   user-select: none;
+  margin: 0 auto;
+  
+  /* 호버 효과 - 데스크톱에서만 */
+  @media (min-width: 769px) {
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
 `;
 
 const CardInner = styled.div<{ $isRevealed: boolean }>`

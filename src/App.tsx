@@ -41,10 +41,20 @@ function App() {
 
 const AppContainer = styled.div`
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 `;
 
 const MainContent = styled.main`
   padding-top: 80px; /* Navigation 높이만큼 여백 */
+  
+  @media (max-width: 768px) {
+    padding-top: 70px;
+  }
+  
+  @media (max-width: 480px) {
+    padding-top: 60px;
+  }
 `;
 
 export default App

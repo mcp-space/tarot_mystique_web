@@ -93,27 +93,48 @@ const SpreadContainer = styled.div<{ $layout: string }>`
   gap: 2rem;
   justify-items: center;
   align-items: center;
-  margin: 3rem 0;
+  margin: 3rem auto;
+  padding: 0 1rem;
   
   ${({ $layout }) => {
     switch ($layout) {
       case 'single':
         return `
           grid-template-columns: 1fr;
-          max-width: 200px;
-          margin: 3rem auto;
+          max-width: 300px;
+          
+          @media (max-width: 768px) {
+            max-width: 250px;
+            margin: 2rem auto;
+          }
+          
+          @media (max-width: 480px) {
+            max-width: 200px;
+            margin: 1.5rem auto;
+            gap: 1.5rem;
+          }
         `;
       case 'three-card':
         return `
           grid-template-columns: repeat(3, 1fr);
           max-width: 720px;
-          margin: 3rem auto;
           gap: 3rem;
+          
+          @media (max-width: 1024px) {
+            max-width: 600px;
+            gap: 2.5rem;
+          }
           
           @media (max-width: 768px) {
             grid-template-columns: 1fr;
             gap: 2rem;
+            max-width: 250px;
+          }
+          
+          @media (max-width: 480px) {
+            gap: 1.5rem;
             max-width: 200px;
+            margin: 2rem auto;
           }
         `;
       case 'celtic-cross':
@@ -121,28 +142,37 @@ const SpreadContainer = styled.div<{ $layout: string }>`
           grid-template-columns: repeat(5, 1fr);
           grid-template-rows: repeat(4, 1fr);
           max-width: 900px;
-          margin: 3rem auto;
           gap: 1.5rem;
           min-height: 600px;
+          
+          @media (max-width: 1200px) {
+            max-width: 750px;
+            gap: 1.2rem;
+            min-height: 550px;
+          }
           
           @media (max-width: 1024px) {
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(5, 1fr);
-            gap: 1.2rem;
-            max-width: 640px;
-            min-height: 700px;
+            gap: 1rem;
+            max-width: 600px;
+            min-height: 650px;
           }
           
           @media (max-width: 768px) {
             grid-template-columns: 1fr;
             grid-template-rows: repeat(10, auto);
-            gap: 2.5rem;
-            max-width: 320px;  // 더 큰 컨테이너
+            gap: 1.5rem;
+            max-width: 250px;
             width: 100%;
             min-height: auto;
             margin: 2rem auto;
-            padding: 0 1rem;
-            justify-items: center;
+          }
+          
+          @media (max-width: 480px) {
+            gap: 1rem;
+            max-width: 200px;
+            margin: 1.5rem auto;
           }
         `;
       default:

@@ -102,12 +102,30 @@ const HomeContainer = styled(motion.div)`
                 radial-gradient(circle at 80% 80%, rgba(75, 0, 130, 0.1) 0%, transparent 50%);
     pointer-events: none;
   }
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+    min-height: calc(100vh - 70px);
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem 0.8rem;
+    min-height: calc(100vh - 60px);
+  }
 `;
 
 const HeroSection = styled.div`
   text-align: center;
   max-width: 600px;
   z-index: 1;
+  
+  @media (max-width: 768px) {
+    max-width: 500px;
+  }
+  
+  @media (max-width: 480px) {
+    max-width: 100%;
+  }
 `;
 
 const IconContainer = styled.div`
@@ -127,6 +145,12 @@ const Title = styled.h1`
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
   }
 `;
 
@@ -135,6 +159,16 @@ const Subtitle = styled.h2`
   margin-bottom: 2rem;
   color: #b19cd9;
   font-weight: 300;
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const Description = styled.p`
@@ -143,6 +177,20 @@ const Description = styled.p`
   margin-bottom: 3rem;
   color: #e0e0e0;
   opacity: 0.9;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    br {
+      display: none;
+    }
+  }
 `;
 
 const StartButton = styled(motion.button)`
@@ -164,6 +212,19 @@ const StartButton = styled(motion.button)`
   &:hover {
     background: linear-gradient(45deg, #9932cc, #6a0dad);
   }
+  
+  @media (max-width: 768px) {
+    padding: 0.9rem 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 40px;
+  }
 `;
 
 const FeatureSection = styled.div`
@@ -172,6 +233,18 @@ const FeatureSection = styled.div`
   gap: 2rem;
   max-width: 900px;
   z-index: 1;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 400px;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 1rem;
+    max-width: 100%;
+  }
 `;
 
 const FeatureCard = styled(motion.div)`
@@ -192,6 +265,20 @@ const FeatureCard = styled(motion.div)`
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(218, 165, 32, 0.3);
   }
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+    border-radius: 12px;
+    
+    svg {
+      margin-bottom: 0.8rem;
+    }
+  }
 `;
 
 const FeatureTitle = styled.h3`
@@ -199,12 +286,22 @@ const FeatureTitle = styled.h3`
   margin-bottom: 1rem;
   color: #daa520;
   font-weight: 600;
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const FeatureText = styled.p`
   color: #e0e0e0;
   line-height: 1.5;
   opacity: 0.9;
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
 `;
 
 export default HomePage;
