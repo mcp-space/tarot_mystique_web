@@ -140,8 +140,8 @@ const ReadingPage: React.FC = () => {
   
   const spreadOptions = [
     { type: 'single' as SpreadType, name: '오늘의 운세', icon: <Star />, description: '하루를 위한 한 장의 카드' },
-    { type: 'three-card' as SpreadType, name: '과거현재미래', icon: <Eye />, description: '시간의 흐름으로 보는 운세' },
-    { type: 'celtic-cross' as SpreadType, name: '종합운세', icon: <Moon />, description: '인생 전반에 대한 깊은 통찰' }
+    { type: 'three-card' as SpreadType, name: '과거 현재 미래', icon: <Eye />, description: '시간의 흐름으로 보는 운세' },
+    { type: 'celtic-cross' as SpreadType, name: '종합 운세', icon: <Moon />, description: '인생 전반에 대한 깊은 통찰' }
   ]
   
   const getCardCount = (spread: SpreadType): number => {
@@ -243,10 +243,7 @@ const ReadingPage: React.FC = () => {
           <QuestionTextarea
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="어떤 것이 궁금하신가요? 💫
-
-예: 오늘 하루 어떻게 보낼까요?
-예: 좋아하는 사람과 잘 될까요?"
+            placeholder="어떤 것이 궁금하신가요? 💫"
             maxLength={500}
           />
         </QuestionInput>

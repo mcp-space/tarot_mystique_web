@@ -97,7 +97,6 @@ export const Navigation: React.FC = () => {
           </>
         )}
       </AnimatePresence>
-      </NavContent>
     </NavContainer>
   );
 };
