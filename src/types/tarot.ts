@@ -50,3 +50,21 @@ export interface ReadingResult {
   overallMessage: string
   advice: string
 }
+
+export interface Reading {
+  id?: string
+  userId?: string
+  spreadType: SpreadType
+  cards: DrawnCard[]
+  question?: string
+  result?: ReadingResult
+  createdAt: Date
+}
+
+// 유저 활동 추적을 위한 인터페이스
+export interface UserActivity {
+  ip: string
+  category: string
+  userContent: string
+  resultContent: string
+}

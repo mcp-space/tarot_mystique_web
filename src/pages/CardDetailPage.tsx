@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
@@ -13,6 +13,7 @@ import {
 } from '../styles/components'
 import { TarotCard } from '../components/TarotCard'
 import { getCardById } from '../data/majorArcana'
+import { useTarotAnalytics } from '../hooks/useAnalytics'
 
 const DetailSection = styled(Section)`
   min-height: 100vh;
@@ -128,8 +129,16 @@ const BackButton = styled(MysticalButton)`
 const CardDetailPage: React.FC = () => {
   const { cardId } = useParams<{ cardId: string }>()
   const navigate = useNavigate()
+  const { logCardView } = useTarotAnalytics()
   
   const card = cardId ? getCardById(parseInt(cardId)) : null
+  
+  // 📊 카드 상세 조회 활동 로깅
+  useEffect(() => {
+    if (card) {
+      logCardView(card.name, card.nameKr)
+    }
+  }, [card, logCardView])
   
   if (!card) {
     return (

@@ -6,7 +6,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Fool',
     nameKr: '광대',
     arcana: 'major',
-    imageUrl: '/images/tarot/00-fool.jpg',
+    imageUrl: '/images/tarot-cards-png/00-TheFool.png',
     keywords: ['new beginnings', 'innocence', 'spontaneity', 'free spirit'],
     keywordsKr: ['새로운 시작', '순수함', '자발성', '자유로운 영혼'],
     meanings: {
@@ -35,7 +35,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Magician',
     nameKr: '마법사',
     arcana: 'major',
-    imageUrl: '/images/tarot/01-magician.jpg',
+    imageUrl: '/images/tarot-cards-png/01-TheMagician.png',
     keywords: ['manifestation', 'resourcefulness', 'power', 'inspired action'],
     keywordsKr: ['현실화', '수완', '힘', '영감받은 행동'],
     meanings: {
@@ -64,7 +64,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The High Priestess',
     nameKr: '여교황',
     arcana: 'major',
-    imageUrl: '/images/tarot/02-high-priestess.jpg',
+    imageUrl: '/images/tarot-cards-png/02-TheHighPriestess.png',
     keywords: ['intuition', 'sacred knowledge', 'divine feminine', 'subconscious mind'],
     keywordsKr: ['직감', '신성한 지식', '신성한 여성성', '잠재의식'],
     meanings: {
@@ -93,7 +93,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Empress',
     nameKr: '여황제',
     arcana: 'major',
-    imageUrl: '/images/tarot/03-empress.jpg',
+    imageUrl: '/images/tarot-cards-png/03-TheEmpress.png',
     keywords: ['femininity', 'beauty', 'nature', 'nurturing', 'abundance'],
     keywordsKr: ['여성성', '아름다움', '자연', '양육', '풍요'],
     meanings: {
@@ -122,7 +122,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Emperor',
     nameKr: '황제',
     arcana: 'major',
-    imageUrl: '/images/tarot/04-emperor.jpg',
+    imageUrl: '/images/tarot-cards-png/04-TheEmperor.png',
     keywords: ['authority', 'structure', 'control', 'stability', 'leadership'],
     keywordsKr: ['권위', '구조', '통제', '안정', '리더십'],
     meanings: {
@@ -151,7 +151,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Hierophant',
     nameKr: '교황',
     arcana: 'major',
-    imageUrl: '/images/tarot/05-hierophant.jpg',
+    imageUrl: '/images/tarot-cards-png/05-TheHierophant.png',
     keywords: ['tradition', 'conformity', 'morality', 'ethics', 'knowledge'],
     keywordsKr: ['전통', '순응', '도덕', '윤리', '지식'],
     meanings: {
@@ -180,7 +180,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Lovers',
     nameKr: '연인',
     arcana: 'major',
-    imageUrl: '/images/tarot/06-lovers.jpg',
+    imageUrl: '/images/tarot-cards-png/06-TheLovers.png',
     keywords: ['love', 'harmony', 'relationships', 'choices', 'values'],
     keywordsKr: ['사랑', '조화', '관계', '선택', '가치관'],
     meanings: {
@@ -209,7 +209,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Chariot',
     nameKr: '전차',
     arcana: 'major',
-    imageUrl: '/images/tarot/07-chariot.jpg',
+    imageUrl: '/images/tarot-cards-png/07-TheChariot.png',
     keywords: ['control', 'willpower', 'success', 'determination', 'direction'],
     keywordsKr: ['통제', '의지력', '성공', '결단력', '방향'],
     meanings: {
@@ -238,7 +238,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'Strength',
     nameKr: '힘',
     arcana: 'major',
-    imageUrl: '/images/tarot/08-strength.jpg',
+    imageUrl: '/images/tarot-cards-png/08-Strength.png',
     keywords: ['inner strength', 'bravery', 'compassion', 'focus', 'influence'],
     keywordsKr: ['내적 힘', '용기', '자비', '집중', '영향력'],
     meanings: {
@@ -267,7 +267,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Hermit',
     nameKr: '은둔자',
     arcana: 'major',
-    imageUrl: '/images/tarot/09-hermit.jpg',
+    imageUrl: '/images/tarot-cards-png/09-TheHermit.png',
     keywords: ['introspection', 'seeking', 'guidance', 'solitude', 'wisdom'],
     keywordsKr: ['내성', '탐구', '인도', '고독', '지혜'],
     meanings: {
@@ -296,7 +296,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'Wheel of Fortune',
     nameKr: '운명의 바퀴',
     arcana: 'major',
-    imageUrl: '/images/tarot/10-wheel-of-fortune.jpg',
+    imageUrl: '/images/tarot-cards-png/10-WheelOfFortune.png',
     keywords: ['cycles', 'fate', 'turning points', 'luck', 'destiny'],
     keywordsKr: ['순환', '운명', '전환점', '행운', '숙명'],
     meanings: {
@@ -325,7 +325,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'Justice',
     nameKr: '정의',
     arcana: 'major',
-    imageUrl: '/images/tarot/11-justice.jpg',
+    imageUrl: '/images/tarot-cards-png/11-Justice.png',
     keywords: ['fairness', 'truth', 'cause and effect', 'law', 'balance'],
     keywordsKr: ['공정함', '진실', '인과응보', '법', '균형'],
     meanings: {
@@ -354,7 +354,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Hanged Man',
     nameKr: '매달린 사람',
     arcana: 'major',
-    imageUrl: '/images/tarot/12-hanged-man.jpg',
+    imageUrl: '/images/tarot-cards-png/12-TheHangedMan.png',
     keywords: ['suspension', 'restriction', 'letting go', 'sacrifice', 'new perspective'],
     keywordsKr: ['정지', '제한', '놓아줌', '희생', '새로운 관점'],
     meanings: {
@@ -383,7 +383,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'Death',
     nameKr: '죽음',
     arcana: 'major',
-    imageUrl: '/images/tarot/13-death.jpg',
+    imageUrl: '/images/tarot-cards-png/13-Death.png',
     keywords: ['endings', 'beginnings', 'change', 'transformation', 'transition'],
     keywordsKr: ['끝', '시작', '변화', '변환', '전환'],
     meanings: {
@@ -412,7 +412,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'Temperance',
     nameKr: '절제',
     arcana: 'major',
-    imageUrl: '/images/tarot/14-temperance.jpg',
+    imageUrl: '/images/tarot-cards-png/14-Temperance.png',
     keywords: ['balance', 'moderation', 'patience', 'purpose', 'meaning'],
     keywordsKr: ['균형', '절제', '인내', '목적', '의미'],
     meanings: {
@@ -441,7 +441,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Devil',
     nameKr: '악마',
     arcana: 'major',
-    imageUrl: '/images/tarot/15-devil.jpg',
+    imageUrl: '/images/tarot-cards-png/15-TheDevil.png',
     keywords: ['bondage', 'addiction', 'sexuality', 'materialism', 'ignorance'],
     keywordsKr: ['속박', '중독', '성적 욕망', '물질주의', '무지'],
     meanings: {
@@ -470,7 +470,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Tower',
     nameKr: '탑',
     arcana: 'major',
-    imageUrl: '/images/tarot/16-tower.jpg',
+    imageUrl: '/images/tarot-cards-png/16-TheTower.png',
     keywords: ['sudden change', 'upheaval', 'chaos', 'revelation', 'awakening'],
     keywordsKr: ['급변', '격변', '혼돈', '폭로', '각성'],
     meanings: {
@@ -499,7 +499,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Star',
     nameKr: '별',
     arcana: 'major',
-    imageUrl: '/images/tarot/17-star.jpg',
+    imageUrl: '/images/tarot-cards-png/17-TheStar.png',
     keywords: ['hope', 'faith', 'purpose', 'renewal', 'spirituality'],
     keywordsKr: ['희망', '믿음', '목적', '재생', '영성'],
     meanings: {
@@ -528,7 +528,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Moon',
     nameKr: '달',
     arcana: 'major',
-    imageUrl: '/images/tarot/18-moon.jpg',
+    imageUrl: '/images/tarot-cards-png/18-TheMoon.png',
     keywords: ['illusion', 'fear', 'anxiety', 'subconscious', 'intuition'],
     keywordsKr: ['착각', '두려움', '불안', '잠재의식', '직관'],
     meanings: {
@@ -557,7 +557,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The Sun',
     nameKr: '태양',
     arcana: 'major',
-    imageUrl: '/images/tarot/19-sun.jpg',
+    imageUrl: '/images/tarot-cards-png/19-TheSun.png',
     keywords: ['positivity', 'fun', 'warmth', 'success', 'vitality'],
     keywordsKr: ['긍정', '즐거움', '따뜻함', '성공', '활력'],
     meanings: {
@@ -586,7 +586,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'Judgement',
     nameKr: '심판',
     arcana: 'major',
-    imageUrl: '/images/tarot/20-judgement.jpg',
+    imageUrl: '/images/tarot-cards-png/20-Judgement.png',
     keywords: ['rebirth', 'inner calling', 'absolution', 'second chances', 'evaluation'],
     keywordsKr: ['재탄생', '내적 부름', '면죄', '두 번째 기회', '평가'],
     meanings: {
@@ -615,7 +615,7 @@ export const majorArcanaCards: TarotCard[] = [
     name: 'The World',
     nameKr: '세계',
     arcana: 'major',
-    imageUrl: '/images/tarot/21-world.jpg',
+    imageUrl: '/images/tarot-cards-png/21-TheWorld.png',
     keywords: ['completion', 'accomplishment', 'travel', 'fulfillment', 'success'],
     keywordsKr: ['완성', '성취', '여행', '성취감', '성공'],
     meanings: {

@@ -5,12 +5,25 @@ import HomePage from './pages/HomePage'
 import ReadingPage from './pages/ReadingPage'
 import CardDetailPage from './pages/CardDetailPage'
 import { Navigation } from './components/Navigation'
+import { usePageTracking } from './hooks/useAnalytics'
 import styled from 'styled-components'
+
+// 개발 환경에서 analytics 테스트 유틸리티 로드
+if (import.meta.env.DEV) {
+  import('./services/analyticsTest')
+}
+
+// 페이지 추적 컴포넌트
+const PageTracker: React.FC = () => {
+  usePageTracking()
+  return null
+}
 
 function App() {
   return (
     <Router>
       <AppContainer>
+        <PageTracker />
         <Navigation />
         <MainContent>
           <AnimatePresence mode="wait">

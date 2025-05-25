@@ -38,6 +38,26 @@ export const TarotCard: React.FC<TarotCardProps> = ({
           </BackPattern>
         </CardBack>
         
+        {/* 이미지만 표시하는 면 (기본 상태) */}
+        <CardImageOnly $isReversed={isReversed}>
+          {card.imageUrl ? (
+            <ActualCardImage 
+              src={card.imageUrl} 
+              alt={`${card.nameKr} (${card.name})`}
+              $isReversed={isReversed}
+              onError={(e) => {
+                console.error('Image failed to load:', card.imageUrl);
+                e.currentTarget.style.display = 'none';
+                const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                if (fallback) fallback.style.display = 'block';
+              }}
+            />
+          ) : (
+            <CardSymbol $isReversed={isReversed}>🔮</CardSymbol>
+          )}
+        </CardImageOnly>
+        
+        {/* 기존 카드 정보 UI (호버시 표시) */}
         <CardFront $isReversed={isReversed}>
           <CardHeader>
             <CardNumber>{card.numerology}</CardNumber>
@@ -48,7 +68,7 @@ export const TarotCard: React.FC<TarotCardProps> = ({
           <CardImageContainer>
             <CardImage>
               <CardSymbol $isReversed={isReversed}>
-                {card.symbol}
+                {card.element || 'MAJOR'}
               </CardSymbol>
             </CardImage>
             
@@ -120,6 +140,11 @@ const CardInner = styled.div<{ $isRevealed: boolean }>`
   transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
   transform: ${props => props.$isRevealed ? 'rotateY(180deg)' : 'rotateY(0deg)'};
+  
+  /* 호버시 카드 뒤집기 효과 */
+  ${CardContainer}:hover & {
+    transform: ${props => props.$isRevealed ? 'rotateY(360deg)' : 'rotateY(180deg)'};
+  }
 `;
 
 const CardSide = styled.div`
@@ -191,6 +216,27 @@ const CardFront = styled(CardSide)<{ $isReversed: boolean }>`
   display: flex;
   flex-direction: column;
   color: #1a1a2e;
+`;
+
+// 이미지만 표시하는 면 (기본 상태)
+const CardImageOnly = styled(CardSide)<{ $isReversed: boolean }>`
+  background: transparent;
+  border: 2px solid #daa520;
+  transform: rotateY(0deg) ${props => props.$isReversed ? 'rotate(180deg)' : 'rotate(0deg)'};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+`;
+
+// 실제 카드 이미지
+const ActualCardImage = styled.img<{ $isReversed: boolean }>`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  transform: ${props => props.$isReversed ? 'rotate(180deg)' : 'rotate(0deg)'};
 `;
 
 const CardHeader = styled.div`
