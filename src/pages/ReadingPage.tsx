@@ -28,6 +28,10 @@ const SpreadSelector = styled.div`
 `
 
 const SpreadButton = styled(MysticalButton)<{ $isActive: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
   background: ${({ theme, $isActive }) =>
     $isActive
       ? `linear-gradient(45deg, ${theme.colors.primary}, ${theme.colors.secondary})`
@@ -37,6 +41,17 @@ const SpreadButton = styled(MysticalButton)<{ $isActive: boolean }>`
     $isActive ? theme.colors.background.dark : theme.colors.primary
   };
   border-color: ${({ theme }) => theme.colors.primary};
+  
+  svg {
+    flex-shrink: 0;
+  }
+  
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
 `
 
 const QuestionInput = styled.div`
@@ -55,12 +70,14 @@ const QuestionTextarea = styled.textarea`
   color: ${({ theme }) => theme.colors.text.primary};
   font-family: ${({ theme }) => theme.fonts.body};
   font-size: 1rem;
+  font-style: normal;
   resize: vertical;
   backdrop-filter: blur(10px);
   
   &::placeholder {
     color: ${({ theme }) => theme.colors.text.muted};
-    font-style: italic;
+    font-style: normal;
+    opacity: 0.8;
   }
   
   &:focus {
@@ -75,6 +92,17 @@ const ReadingControls = styled.div`
   gap: 1rem;
   margin: 2rem 0;
   flex-wrap: wrap;
+`
+
+const StyledReadingButton = styled(MysticalButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  
+  svg {
+    flex-shrink: 0;
+  }
 `
 
 const ResultSection = styled(motion.div)`
@@ -224,7 +252,7 @@ const ReadingPage: React.FC = () => {
         
         {/* 리딩 버튼 */}
         <ReadingControls>
-          <MysticalButton
+          <StyledReadingButton
             onClick={drawCards}
             disabled={isReading}
             whileHover={{ scale: isReading ? 1 : 1.05 }}
@@ -246,16 +274,16 @@ const ReadingPage: React.FC = () => {
                 카드 뽑기
               </>
             )}
-          </MysticalButton>
+          </StyledReadingButton>
           
           {showResult && (
-            <MysticalButton
+            <StyledReadingButton
               onClick={resetReading}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               다시 뽑기
-            </MysticalButton>
+            </StyledReadingButton>
           )}
         </ReadingControls>
         
